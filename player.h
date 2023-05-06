@@ -7,7 +7,7 @@ private:
 	sf::FloatRect bounds;
 public:
 	Player() {
-		texture.loadFromFile("images\\crosshair.png");
+		texture.loadFromFile(PLAYER_FILE_NAME);
 		sprite.setTexture(texture);
 		bounds = sprite.getGlobalBounds();
 		sprite.setOrigin(bounds.width / 2, bounds.height / 2);
@@ -17,10 +17,10 @@ public:
 		mouse = sf::Vector2f{ sf::Mouse::getPosition() };
 		sprite.setPosition(mouse);
 	}
-	void update(){
+	void update() {
 		playerControl();
 	}
-	void draw(sf::RenderWindow& window){
+	void draw(sf::RenderWindow& window) {
 		window.draw(sprite);
 	}
 };

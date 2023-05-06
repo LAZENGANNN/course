@@ -1,10 +1,9 @@
 #pragma once
 #include "settings.h"
-#include <iostream>
 
 class GameObj {
 public:
-	GameObj() { std::cout << "GameObject created\n"; }
+	GameObj() {  }
 	virtual void update() = 0;
 	virtual void draw(sf::RenderWindow& window) = 0;
 
