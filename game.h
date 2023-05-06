@@ -4,8 +4,8 @@
 
 class Game {
 private:
-	Player player;
 	sf::RenderWindow window;
+	Player player;
 
 	void checkEvents() {
 		sf::Event event;
@@ -13,24 +13,29 @@ private:
 			if (event.type == sf::Event::Closed) window.close();
 	}
 
-	void update() {
+	void update(){
 		player.update();
 	}
-	void checkCollisions() {}
 
 	void draw() {
+		window.clear();
 		player.draw(window);
+		window.display();
 	}
+
 public:
-	Game() : window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE) {
-		window.setFramerateLimit(FPS);		
+	Game() :
+		window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE)		
+	{
+		window.setFramerateLimit(FPS);
 	}
+
 	void play() {
-		while (window.isOpen())
+		while (window.isOpen()/* && player.isAlive()*/)
 		{
 			checkEvents();
 			update();
-			checkCollisions();
+			/*checkCollisions();*/
 			draw();
 		}
 	}

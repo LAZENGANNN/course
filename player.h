@@ -1,19 +1,26 @@
 #pragma once
+#include "settings.h"
 #include "gameObj.h"
-class Player :public GameObj {
+
+class Player : public GameObj {
 private:
-	float speedx;
-	float speedy;
-	int HP = 5;
+	sf::FloatRect bounds;
 public:
 	Player() {
-		texture.loadFromFile("");
+		texture.loadFromFile("images\\crosshair.png");
 		sprite.setTexture(texture);
-		speedx = SPEED;
-		speedy = SPEED;
-		sprite.setPosition(PLAYER_START_POS);
+		bounds = sprite.getGlobalBounds();
+		sprite.setOrigin(bounds.width / 2, bounds.height / 2);
 	}
-	void playerControl() {}
-	void update() {}
-	void draw(sf::RenderWindow& window) { window.draw(sprite); }
+	void playerControl() {
+		sf::Vector2f mouse;
+		mouse = sf::Vector2f{ sf::Mouse::getPosition() };
+		sprite.setPosition(mouse);
+	}
+	void update(){
+		playerControl();
+	}
+	void draw(sf::RenderWindow& window){
+		window.draw(sprite);
+	}
 };
