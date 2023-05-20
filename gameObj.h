@@ -4,7 +4,7 @@
 class GameObj {
 public:
 	GameObj() {  }
-	virtual void update() = 0;
+	/*virtual void update() = 0;*/
 	virtual void draw(sf::RenderWindow& window) = 0;
 
 	sf::Vector2f getPosition() { return sprite.getPosition(); }

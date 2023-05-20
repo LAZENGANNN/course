@@ -11,6 +11,7 @@ const std::string PLAYER_FILE_NAME = "images\\crosshair.png";
 const float ENEMY_WIDTH = 99.f;
 const float ENEMY_HEIGHT = 75.f;
 const size_t ENEMY_QTY = 3;
+const size_t ENEMY_TYPE_QTY = 1;
 
 const int CHAR_SIZE = 32;
 const float TEXT_OFFSET = 60.f;

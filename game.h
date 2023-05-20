@@ -19,13 +19,28 @@ private:
 		while (window.pollEvent(event))
 			if (event.type == sf::Event::Closed) window.close();
 	}
+	void enemySpawn() {
+		for (auto& enemy : enemySprites) {
+			enemy->spawn(enemyType);
+		}
+	}
+
+	Enemy::EnemyType enemyRand() {
+		size_t enemyType = rand() % Enemy::EnemyType::ENEMIES_TYPE_QTY;
+		return (Enemy::EnemyType)enemyType;
+	}
+	Enemy::EnemyType enemyType = enemyRand();
+
+
 	void checkcollisions() {
 		sf::FloatRect playerHitBox = player.getHitBox();
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			for (auto& enemy : enemySprites) {
 				sf::FloatRect enemyHitBox = enemy->getHitBox();
 				if (playerHitBox.intersects(enemyHitBox)) {
-					enemy->spawn();
+					/*size_t enemyType = rand() % Enemy::EnemyType::ENEMIES_TYPE_QTY;*/
+					/*enemy->spawn((Enemy::EnemyType)enemyType);*/
+					enemy->spawn(Enemy::EnemyType::RED_DOWN);
 					score += 10;
 				}
 			}
@@ -34,11 +49,15 @@ private:
 
 	void update() {
 		for (auto& e : enemySprites) {
-			e->update();
+			e->update(Enemy::EnemyType::RED_DOWN);
 		}
+		/*enemySprites.remove_if([](Enemy* enemy) {return enemy->isToDel(); });*/
+		/*enemySpawn()*/;
 		player.update();
 		scoreText.update(std::to_string(score));
 	}
+
+
 
 	void draw() {
 		window.clear();
@@ -58,7 +77,7 @@ public:
 		window.setFramerateLimit(FPS);
 		enemySprites.reserve(ENEMY_QTY);
 		for (int i = 0; i < ENEMY_QTY; i++) {
-			enemySprites.push_back(new Enemy());
+			enemySprites.push_back(new Enemy(Enemy::EnemyType::RED_DOWN));
 		}
     }
 
