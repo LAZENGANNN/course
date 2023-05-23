@@ -1,7 +1,8 @@
 #pragma once
 #include "settings.h"
 #include "player.h"
-#include "enemy.h"
+#include "enemy_red.h"
+#include "enemy_green.h"
 #include <vector>
 #include "textObj.h"
 
@@ -9,7 +10,8 @@ class Game {
 private:
 	sf::RenderWindow window;
 	Player player;
-	std::vector<Enemy*> enemySprites;
+	std::vector<EnemyRed*> enemySpritesR;
+	std::vector<EnemyGreen*> enemySpritesG;
 	int score = 0;
 	int HP = 100;
 	TextObj scoreText;
@@ -21,49 +23,55 @@ private:
 		while (window.pollEvent(event))
 			if (event.type == sf::Event::Closed) window.close();
 	}
-	void enemySpawn() {
-		for (auto& enemy : enemySprites) {
-			enemy->spawn(enemyType);
-		}
-	}
-
-	Enemy::EnemyType enemyRand() {
-		size_t enemyType = rand() % Enemy::EnemyType::ENEMIES_TYPE_QTY;
-		return (Enemy::EnemyType)enemyType;
-	}
-	Enemy::EnemyType enemyType = enemyRand();
-
+	
 
 	void checkcollisions() {
-		sf::FloatRect playerHitBox = player.getHitBox();
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			for (auto& enemy : enemySprites) {
-				sf::FloatRect enemyHitBox = enemy->getHitBox();
-				if (playerHitBox.intersects(enemyHitBox)) {
-					/*size_t enemyType = rand() % Enemy::EnemyType::ENEMIES_TYPE_QTY;*/
-					/*enemy->spawn((Enemy::EnemyType)enemyType);*/
-					enemy->spawn(Enemy::EnemyType::RED_DOWN);
-					score += 10;
-				}
+			sf::FloatRect playerHitBox = player.getHitBox();
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					for (auto& enemyR : enemySpritesR) {
+						sf::FloatRect enemyHitBox = enemyR->getHitBox();
+						if (playerHitBox.intersects(enemyHitBox)) {
+							enemyR->spawn();
+							score += 10;
+						}
+					}
+					for (auto& enemyG : enemySpritesG) {
+						sf::FloatRect enemyHitBox = enemyG->getHitBox();
+						if (playerHitBox.intersects(enemyHitBox)) {
+							enemyG->spawn();
+							score += 10;
+						}
+					}
 			}
 		}
-	}
+
 
 	void update() {
-		for (auto& e : enemySprites) {
-			e->update(Enemy::EnemyType::RED_DOWN);
+		for (auto& e : enemySpritesR) {
+			e->update();
+			if (e->getPosition().y > DOWN_DEAD_ZONE) {
+				HP -= 10;
+				e->spawn();
+			}
 		}
-		/*enemySprites.remove_if([](Enemy* enemy) {return enemy->isToDel(); });*/
-		/*enemySpawn()*/;
+		for (auto& e : enemySpritesG) {
+			e->update(); 
+			if (e->getPosition().x > RIGHT_DEAD_ZONE) {
+				HP -= 10;
+				e->spawn();
+			}
+		}
 		player.update();
 		scoreText.update(std::to_string(score));
+		HPText.update(std::to_string(HP));
 	}
-
 
 
 	void draw() {
 		window.clear();
-		for (auto e : enemySprites) {
+		for (auto e : enemySpritesR) {
+			e->draw(window);
+		}for (auto e : enemySpritesG) {
 			e->draw(window);
 		}
 		player.draw(window);
@@ -79,19 +87,22 @@ public:
 		HPText(std::to_string(HP), (sf::Vector2f{0.f,0.f }))
 	{
 		window.setFramerateLimit(FPS);
-		enemySprites.reserve(ENEMY_QTY);
-		for (int i = 0; i < ENEMY_QTY; i++) {
-			enemySprites.push_back(new Enemy(Enemy::EnemyType::RED_DOWN));
+		enemySpritesR.reserve(ENEMY_QTY_RED);
+		enemySpritesR.reserve(ENEMY_QTY_GREEN);
+		for (int i = 0; i < ENEMY_QTY_RED; i++) {
+			enemySpritesR.push_back(new EnemyRed);
+		}
+		for (int i = 0; i < ENEMY_QTY_GREEN; i++) {
+			enemySpritesG.push_back(new EnemyGreen);
 		}
 	}
 
 	void play() {
-		while (window.isOpen()/* && player.isAlive()*/)
+		while (window.isOpen())
 		{
 			checkEvents();
 			update();
 			checkcollisions();
-			/*checkCollisions();*/
 			draw();
 		}
 	}

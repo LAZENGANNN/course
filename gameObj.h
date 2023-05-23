@@ -13,4 +13,5 @@ public:
 protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
+	sf::FloatRect bounds = sprite.getGlobalBounds();
 };
