@@ -15,6 +15,8 @@ const size_t ENEMY_QTY_RED = 3;
 const size_t ENEMY_TYPE_QTY = 1;
 const float RIGHT_DEAD_ZONE = WINDOW_WIDTH - ENEMY_WIDTH;
 const float DOWN_DEAD_ZONE = WINDOW_HEIGHT - ENEMY_HEIGHT;
+const int SPEED_INCREACE_CD = 10;
+const float BOMB_POINT = WINDOW_WIDTH - (WINDOW_WIDTH / 2);
 
 const int CHAR_SIZE = 32;
 const float TEXT_OFFSET = 60.f;
