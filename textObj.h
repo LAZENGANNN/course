@@ -22,5 +22,6 @@ public:
 	//void textDraw(sf::RenderWindow& window, const TextObj& textobj) {
 	//	window.draw(textobj.text);
 	//}
+	void setPosition(sf::Vector2f pos) { text.setPosition(pos); }
 
 };

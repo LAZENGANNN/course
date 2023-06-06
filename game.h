@@ -15,9 +15,10 @@ private:
 	std::vector<EnemyGreen*> enemySpritesG;
 	std::list<Bomb*> bombSprites;
 	int score = 0;
-	int HP = 100;
+	int HP = START_HP;
 	TextObj scoreText;
 	TextObj HPText;
+	bool start = false;
 
 
 	void checkEvents() {
@@ -68,6 +69,28 @@ private:
 			}
 		}
 	}
+	void gameOverRect() {
+		if (HP <= 0) {
+		sf::Sprite gameOver;
+		sf::Texture tex;
+		tex.loadFromFile("images\\gameOver_screen.png");
+		gameOver.setTexture(tex);	
+		window.clear();
+			window.draw(gameOver);
+		}
+	}
+	void gameStart() {
+		if (!start) {
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Middle)) { HP = 10; }
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {start = 1;}
+			sf::Sprite gameStart;
+			sf::Texture tex;
+			tex.loadFromFile("images\\start_screen.png");
+			gameStart.setTexture(tex);
+			window.clear();
+			window.draw(gameStart);
+		}
+	}
 
 
 	void update() {
@@ -98,25 +121,27 @@ private:
 
 	void draw() {
 		window.clear();
-		for (auto e : enemySpritesR) {
-			e->draw(window);
-		}
-		for (auto e : enemySpritesG) {
-			e->draw(window);
-		}
-		for (auto b : bombSprites) {
-			b->draw(window);
-		}
-		player.draw(window);
-		window.draw(scoreText.getText());
-		window.draw(HPText.getText());
-		window.display();
+			for (auto e : enemySpritesR) {
+				e->draw(window);
+			}
+			for (auto e : enemySpritesG) {
+				e->draw(window);
+			}
+			for (auto b : bombSprites) {
+				b->draw(window);
+			}
+			player.draw(window);
+			window.draw(HPText.getText());
+			gameOverRect();
+			window.draw(scoreText.getText());
+			gameStart();
+		    window.display();
 	}
 
 public:
 	Game() :
 		window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE),
-		scoreText(std::to_string(score), (sf::Vector2f{ WINDOW_WIDTH / 2,0.f })),
+		scoreText(std::to_string(score), SCORETEXT_START_POS),
 		HPText(std::to_string(HP), (sf::Vector2f{0.f,0.f }))
 	{
 		window.setFramerateLimit(FPS);

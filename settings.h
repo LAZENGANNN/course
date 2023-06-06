@@ -7,6 +7,7 @@ const std::string WINDOW_TITLE = "title";
 const float FPS = 75.f;
 
 const std::string PLAYER_FILE_NAME = "images\\crosshair.png";
+const int START_HP = 100;
 
 const float ENEMY_WIDTH = 99.f;
 const float ENEMY_HEIGHT = 75.f;
@@ -20,4 +21,5 @@ const float BOMB_POINT = WINDOW_WIDTH - (WINDOW_WIDTH / 2);
 
 const int CHAR_SIZE = 32;
 const float TEXT_OFFSET = 60.f;
-const sf::Vector2f TEXT_START_POS{ WINDOW_WIDTH - TEXT_OFFSET, 0.f };
+const sf::Vector2f SCORETEXT_START_POS{ WINDOW_WIDTH / 2,0.f };
+const sf::Vector2f TEXT_END_POS{ 1000, 1000 };

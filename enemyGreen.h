@@ -5,8 +5,8 @@
 class EnemyGreen : public GameObj {
 private:
 	float speedx;
-	int speedRange1 = 2;
-	int speedRange2 = 1;
+	int speedRange1 = 6;
+	int speedRange2 = 3;
 	sf::Clock timer;
 	int side;
 
@@ -38,7 +38,7 @@ public:
 		}
 		if (side == 1) {
 			speedx = rand() % speedRange1 + speedRange2;
-			float y = (rand() % (int)(WINDOW_HEIGHT));
+			float y = (rand() % (int)(WINDOW_HEIGHT - (WINDOW_HEIGHT/2)));
 			sprite.setPosition(WINDOW_WIDTH - ENEMY_WIDTH,y);
 			sprite.setRotation(180);
 			speedx = -speedx;
