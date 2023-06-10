@@ -47,7 +47,10 @@ private:
 						}
 					}
 					for (auto& b : bombSprites) {
-						b->setDel();
+						sf::FloatRect bombHitBox = b->getHitBox();
+						if (playerHitBox.intersects(bombHitBox)) {
+							b->setDel();
+						}
 					}
 			}
 				for (auto& b : bombSprites) {
@@ -59,13 +62,39 @@ private:
 				bombSprites.remove_if([](Bomb* bonus) {return bonus->offScreen(); });
 				bombSprites.remove_if([](Bomb* bonus) {return bonus->isToDel(); });
 	}
+	void restart() {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+			start = false;
+			for (auto& e : enemySpritesR) {
+				e->setStartSpeed();
+				e->spawn();
+			}
+			for (auto& e : enemySpritesG) {
+				e->setStartSpeed();
+				e->spawn();
+			}
+			score = 0;
+			HP = 100;
+		}
+	}
 	void spawnBomb() {
 		for (auto& e : enemySpritesG) {
-			if (e->getPosition().x == WINDOW_WIDTH / 2) {
-				Bomb* bomb = new Bomb(e->getPosition());
-				bombSprites.push_back(bomb);
-				e->changeSide();
+			int side = e->getSide();
+			if (side == 0) {
+				if (e->getPosition().x >= WINDOW_WIDTH / 2) {
+					Bomb* bomb = new Bomb(e->getPosition());
+					bombSprites.push_back(bomb);
+					e->changeSide();
 
+				}
+			}
+			else if (side == 1) {
+				if (e->getPosition().x <= WINDOW_WIDTH / 2) {
+					Bomb* bomb = new Bomb(e->getPosition());
+					bombSprites.push_back(bomb);
+					e->changeSide();
+
+				}
 			}
 		}
 	}
@@ -74,7 +103,8 @@ private:
 		sf::Sprite gameOver;
 		sf::Texture tex;
 		tex.loadFromFile("images\\gameOver_screen.png");
-		gameOver.setTexture(tex);	
+		gameOver.setTexture(tex);
+		restart();
 		window.clear();
 			window.draw(gameOver);
 		}
@@ -82,7 +112,10 @@ private:
 	void gameStart() {
 		if (!start) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Middle)) { HP = 10; }
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {start = 1;}
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+				start = 1;
+				score = 0;
+			}
 			sf::Sprite gameStart;
 			sf::Texture tex;
 			tex.loadFromFile("images\\start_screen.png");
@@ -91,7 +124,6 @@ private:
 			window.draw(gameStart);
 		}
 	}
-
 
 	void update() {
 		spawnBomb();

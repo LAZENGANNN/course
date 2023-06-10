@@ -5,8 +5,8 @@
 class EnemyRed : public GameObj{
 private:
 	float speedx, speedy;
-	int speedRange1 = 3;
-	int speedRange2 = 1;
+	int speedRange1 = RED_START_SPEED_1;
+	int speedRange2 = RED_START_SPEED_2;
 	sf::Clock timer;
 
 public:
@@ -44,6 +44,11 @@ public:
 
 	void draw(sf::RenderWindow& window) {
 		window.draw(sprite);
+	}
+
+	void setStartSpeed() {
+		speedRange1 = RED_START_SPEED_1;
+		speedRange2 = RED_START_SPEED_2;
 	}
 
 

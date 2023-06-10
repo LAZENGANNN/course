@@ -5,8 +5,8 @@
 class EnemyGreen : public GameObj {
 private:
 	float speedx;
-	int speedRange1 = 6;
-	int speedRange2 = 3;
+	int speedRange1 = GREEN_START_SPEED_1;
+	int speedRange2 = GREEN_START_SPEED_2;
 	sf::Clock timer;
 	int side;
 
@@ -29,7 +29,7 @@ public:
 	}*/
 
 	void spawn() {
-		int side = rand() % 2;
+		side = rand() % 2;
 		if (side == 0) {
 			speedx = rand() % speedRange1 + speedRange2;
 			float y = (rand() % (int)(WINDOW_HEIGHT));
@@ -73,4 +73,9 @@ public:
 	}
 
 	int getSide() { return side; }
+
+	void setStartSpeed() {
+		speedRange1 = GREEN_START_SPEED_1;
+		speedRange2 = GREEN_START_SPEED_2;
+	}
 };

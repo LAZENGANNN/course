@@ -19,6 +19,11 @@ const float DOWN_DEAD_ZONE = WINDOW_HEIGHT - ENEMY_HEIGHT;
 const int SPEED_INCREACE_CD = 10;
 const float BOMB_POINT = WINDOW_WIDTH - (WINDOW_WIDTH / 2);
 
+const float RED_START_SPEED_1 = 3;
+const float RED_START_SPEED_2 = 1;
+const float GREEN_START_SPEED_1 = 5;
+const float GREEN_START_SPEED_2 = 2;
+
 const int CHAR_SIZE = 32;
 const float TEXT_OFFSET = 60.f;
 const sf::Vector2f SCORETEXT_START_POS{ WINDOW_WIDTH / 2,0.f };
