@@ -27,5 +27,5 @@ public:
 	void draw(sf::RenderWindow& window) {
 		window.draw(sprite);
 	}
-
+	sf::Texture getTexture() { return texture; }
 };

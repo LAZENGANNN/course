@@ -3,7 +3,7 @@
 
 class GameObj {
 public:
-	GameObj() {  }
+	GameObj() {}
 	/*virtual void update() = 0;*/
 	virtual void draw(sf::RenderWindow& window) = 0;
 

@@ -6,6 +6,7 @@
 #include <vector>
 #include "textObj.h"
 #include "bomb.h"
+#include <iostream>
 
 class Game {
 private:
@@ -35,14 +36,14 @@ private:
 						sf::FloatRect enemyHitBox = enemyR->getHitBox();
 						if (playerHitBox.intersects(enemyHitBox)) {
 							enemyR->spawn();
-							score += 10;
+							score += SCORE_INCREACE_ENEMY_R;
 						}
 					}
 					for (auto& enemyG : enemySpritesG) {
 						sf::FloatRect enemyHitBox = enemyG->getHitBox();
 						if (playerHitBox.intersects(enemyHitBox)) {
 							enemyG->spawn();
-							score += 10;
+							score += SCORE_INCREASE_ENEMY_G;
 							/*int bombRange = rand() % (int)WINDOW_WIDTH / 2 + WINDOW_WIDTH / 2;*/
 						}
 					}
@@ -50,6 +51,7 @@ private:
 						sf::FloatRect bombHitBox = b->getHitBox();
 						if (playerHitBox.intersects(bombHitBox)) {
 							b->setDel();
+							score += SCORE_INCREACE_BOMB;
 						}
 					}
 			}
@@ -62,6 +64,7 @@ private:
 				bombSprites.remove_if([](Bomb* bonus) {return bonus->offScreen(); });
 				bombSprites.remove_if([](Bomb* bonus) {return bonus->isToDel(); });
 	}
+	void backGround() {};///////////////////////////////////////////////////////////////////////////////////////////////////
 	void restart() {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
 			start = false;
@@ -81,19 +84,25 @@ private:
 		for (auto& e : enemySpritesG) {
 			int side = e->getSide();
 			if (side == 0) {
-				if (e->getPosition().x >= WINDOW_WIDTH / 2) {
-					Bomb* bomb = new Bomb(e->getPosition());
-					bombSprites.push_back(bomb);
-					e->changeSide();
+				if (e->getPosition().x >= WINDOW_WIDTH - WINDOW_WIDTH/3) {
+					int range = rand() % (int)(WINDOW_WIDTH / 3);
+					if (e->getPosition().x >= range) {
+						Bomb* bomb = new Bomb(e->getPosition());
+						bombSprites.push_back(bomb);
+						e->changeSide();
+					}
 
 				}
 			}
 			else if (side == 1) {
-				if (e->getPosition().x <= WINDOW_WIDTH / 2) {
-					Bomb* bomb = new Bomb(e->getPosition());
-					bombSprites.push_back(bomb);
-					e->changeSide();
-
+				if (e->getPosition().x <= WINDOW_WIDTH/3) {
+					int range = rand() % 1280 + 640;
+					std::cout << range << " ";
+					if (e->getPosition().x <= range) {
+						Bomb* bomb = new Bomb(e->getPosition());
+						bombSprites.push_back(bomb);
+						e->changeSide();
+					}
 				}
 			}
 		}
@@ -133,14 +142,14 @@ private:
 		for (auto& e : enemySpritesR) {
 			e->update();
 			if (e->getPosition().y > DOWN_DEAD_ZONE) {
-				HP -= 10;
+				HP -= HP_DECREACE;
 				e->spawn();
 			}
 		}
 		for (auto& e : enemySpritesG) {
 			e->update(); 
 			if (e->getPosition().x > RIGHT_DEAD_ZONE) {
-				HP -= 10;
+				HP -= HP_DECREACE;
 				e->spawn();
 			}
 		}
@@ -177,6 +186,7 @@ public:
 		HPText(std::to_string(HP), (sf::Vector2f{0.f,0.f }))
 	{
 		window.setFramerateLimit(FPS);
+		window.setMouseCursorVisible(false);
 		enemySpritesR.reserve(ENEMY_QTY_RED);
 		enemySpritesR.reserve(ENEMY_QTY_GREEN);
 		for (int i = 0; i < ENEMY_QTY_RED; i++) {

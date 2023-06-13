@@ -32,7 +32,7 @@ public:
 		side = rand() % 2;
 		if (side == 0) {
 			speedx = rand() % speedRange1 + speedRange2;
-			float y = (rand() % (int)(WINDOW_HEIGHT));
+			float y = (rand() % (int)(WINDOW_HEIGHT - (WINDOW_HEIGHT / 2)));
 			sprite.setPosition(0 , y);
 			sprite.setRotation(360);
 		}
