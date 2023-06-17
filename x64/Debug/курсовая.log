@@ -1,0 +1,21 @@
+﻿  main.cpp
+D:\roman zhigalov\курсовая\курсовая\enemyRed.h(8,20): warning C4244: инициализация: преобразование "const float" в "int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\enemyRed.h(9,20): warning C4244: инициализация: преобразование "const float" в "int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\enemyRed.h(22,11): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\enemyRed.h(23,33): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\enemyRed.h(30,11): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\settings.h(26,33): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\settings.h(27,33): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\enemyGreen.h(8,20): warning C4244: инициализация: преобразование "const float" в "int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\enemyGreen.h(9,20): warning C4244: инициализация: преобразование "const float" в "int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\enemyGreen.h(34,34): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\enemyGreen.h(35,12): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\enemyGreen.h(40,34): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\enemyGreen.h(41,12): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\enemyGreen.h(52,11): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\settings.h(28,35): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\settings.h(29,35): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\game.h(187,38): warning C4244: аргумент: преобразование "const float" в "unsigned int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\game.h(187,24): warning C4244: аргумент: преобразование "const float" в "unsigned int", возможна потеря данных
+D:\roman zhigalov\курсовая\курсовая\game.h(191,28): warning C4244: аргумент: преобразование "const float" в "unsigned int", возможна потеря данных
+  курсовая.vcxproj -> D:\roman zhigalov\курсовая\x64\Debug\курсовая.exe
